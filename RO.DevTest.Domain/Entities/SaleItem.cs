@@ -16,7 +16,7 @@ public class SaleItem
     /// ID of the sale this item belongs to
     /// </summary>
     public Guid SaleId { get; set; }
-
+    
     /// <summary>
     /// Reference to the parent sale
     /// </summary>

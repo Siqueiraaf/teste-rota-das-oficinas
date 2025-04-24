@@ -11,7 +11,7 @@ public class ProductsVm
     /// <summary>
     /// List of products in the current page
     /// </summary>
-    public List<ProductDto> Products { get; set; } = new List<ProductDto>();
+    public List<ProductDto> Products { get; set; } = [];
 
     /// <summary>
     /// Total number of products matching the filter criteria

@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using System;
 
 namespace RO.DevTest.Application.Features.Product.Commands.CreateProductCommand;
 

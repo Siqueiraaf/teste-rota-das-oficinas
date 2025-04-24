@@ -34,13 +34,8 @@ public interface IBaseRepository<T> where T : class {
     /// </summary>
     /// <param name="entity"> The entity to be deleted </param>
     void Delete(T entity);
-
-
-    
-    
     
     // ***add my solutions***
-
     /// <summary>
     /// Gets an entity by its ID
     /// </summary>

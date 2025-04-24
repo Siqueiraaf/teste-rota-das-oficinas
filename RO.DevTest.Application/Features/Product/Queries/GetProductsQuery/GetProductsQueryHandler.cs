@@ -32,21 +32,13 @@ public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, Product
 
         if (!string.IsNullOrWhiteSpace(request.SortBy))
         {
-            switch (request.SortBy.ToLower())
+            orderBy = request.SortBy.ToLower() switch
             {
-                case "name":
-                    orderBy = query => request.SortDesc ? query.OrderByDescending(p => p.Name) : query.OrderBy(p => p.Name);
-                    break;
-                case "price":
-                    orderBy = query => request.SortDesc ? query.OrderByDescending(p => p.Price) : query.OrderBy(p => p.Price);
-                    break;
-                case "createdat":
-                    orderBy = query => request.SortDesc ? query.OrderByDescending(p => p.CreatedAt) : query.OrderBy(p => p.CreatedAt);
-                    break;
-                default:
-                    orderBy = query => query.OrderBy(p => p.Name);
-                    break;
-            }
+                "name" => query => request.SortDesc ? query.OrderByDescending(p => p.Name) : query.OrderBy(p => p.Name),
+                "price" => query => request.SortDesc ? query.OrderByDescending(p => p.Price) : query.OrderBy(p => p.Price),
+                "createdat" => query => request.SortDesc ? query.OrderByDescending(p => p.CreatedAt) : query.OrderBy(p => p.CreatedAt),
+                _ => query => query.OrderBy(p => p.Name),
+            };
         }
         else
         {
@@ -60,7 +52,7 @@ public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, Product
         var products = await _productRepository.GetAsync(
             predicate,
             orderBy,
-            null,
+            (string?)null, // forçar o tipo do argumento.
             true);
 
         // Apply pagination manually
@@ -76,16 +68,15 @@ public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, Product
         // Create and return the view model
         var result = new ProductsVm
         {
-            Products = paginatedProducts.Select(p => new ProductDto
-            {
-                Id = p.Id,
-                Name = p.Name,
-                Description = p.Description,
-                Price = p.Price,
-                StockQuantity = p.StockQuantity,
-                CreatedAt = p.CreatedAt,
-                UpdatedAt = p.UpdatedAt
-            }).ToList(),
+            Products = paginatedProducts.Select(p => new ProductDto(
+                p.Id,
+                p.Name,
+                p.Description,
+                p.Price,
+                p.StockQuantity,
+                p.CreatedAt,
+                p.UpdatedAt
+            )).ToList(),
             TotalCount = totalCount,
             PageNumber = request.PageNumber,
             PageSize = request.PageSize,

@@ -1,10 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RO.DevTest.Application.Contracts.Persistance.Repositories;
 using RO.DevTest.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RO.DevTest.Persistence.Repositories;
 

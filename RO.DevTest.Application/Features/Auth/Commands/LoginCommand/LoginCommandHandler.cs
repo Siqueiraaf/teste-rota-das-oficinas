@@ -73,7 +73,7 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginResponse>
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"] ?? "defaultSecretKeyForDevelopment"));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        var expiration = DateTime.UtcNow.AddMinutes(2);
+        var expiration = DateTime.UtcNow.AddMinutes(5);
 
         var token = new JwtSecurityToken(
             issuer: _configuration["Jwt:Issuer"],

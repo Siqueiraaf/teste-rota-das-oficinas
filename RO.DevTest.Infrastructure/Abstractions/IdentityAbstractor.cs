@@ -18,18 +18,22 @@ public class IdentityAbstractor : IIdentityAbstractor {
     public IdentityAbstractor(
         UserManager<User> userManager,
         SignInManager<User> signInManager,
-        RoleManager<IdentityRole> roleManager
-    ) {
+        RoleManager<IdentityRole> roleManager) 
+    
+    {
         _userManager = userManager;
         _signInManager = signInManager;
         _roleManager = roleManager;
     }
 
-    public async Task<User?> FindUserByEmailAsync(string email) => await _userManager.FindByEmailAsync(email);
+    public async Task<User?> FindUserByEmailAsync(string email) 
+        => await _userManager.FindByEmailAsync(email);
 
-    public async Task<User?> FindUserByIdAsync(string userId) => await _userManager.FindByIdAsync(userId);
+    public async Task<User?> FindUserByIdAsync(string userId) 
+        => await _userManager.FindByIdAsync(userId);
 
-    public async Task<IList<string>> GetUserRolesAsync(User user) => await _userManager.GetRolesAsync(user);
+    public async Task<IList<string>> GetUserRolesAsync(User user) 
+        => await _userManager.GetRolesAsync(user);
 
     public async Task<IdentityResult> CreateUserAsync(User partnerUser, string password) {
         if(string.IsNullOrEmpty(password)) {
@@ -45,7 +49,8 @@ public class IdentityAbstractor : IIdentityAbstractor {
     public async Task<SignInResult> PasswordSignInAsync(User user, string password)
         => await _signInManager.PasswordSignInAsync(user, password, false, false);
 
-    public async Task<IdentityResult> DeleteUser(User user) => await _userManager.DeleteAsync(user);
+    public async Task<IdentityResult> DeleteUser(User user) 
+        => await _userManager.DeleteAsync(user);
 
     public async Task<IdentityResult> AddToRoleAsync(User user, UserRoles role) {
         if(await _roleManager.RoleExistsAsync(role.ToString()) is false) {
@@ -53,5 +58,15 @@ public class IdentityAbstractor : IIdentityAbstractor {
         }
 
         return await _userManager.AddToRoleAsync(user, role.ToString());
+    }
+
+    public async Task<User> FindUserByUsernameAsync(string username)
+    {
+        var user = await _userManager.FindByNameAsync(username);
+        if (user is null)
+        {
+            throw new InvalidOperationException($"User with username '{username}' not found.");
+        }
+        return user;
     }
 }

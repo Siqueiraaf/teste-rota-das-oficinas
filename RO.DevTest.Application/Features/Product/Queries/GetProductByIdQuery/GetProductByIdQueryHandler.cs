@@ -1,8 +1,5 @@
 ﻿using MediatR;
 using RO.DevTest.Application.Contracts.Persistance.Repositories;
-using RO.DevTest.Domain.Exception;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace RO.DevTest.Application.Features.Product.Queries.GetProductByIdQuery;
 
@@ -25,19 +22,18 @@ public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, P
 
         if (product == null)
         {
-            throw new NotFoundException($"Product with ID {request.Id} not found.");
+            throw new KeyNotFoundException($"Product with ID {request.Id} not found.");
         }
 
         // Map domain entity to DTO
-        return new ProductDto
-        {
-            Id = product.Id,
-            Name = product.Name,
-            Description = product.Description,
-            Price = product.Price,
-            StockQuantity = product.StockQuantity,
-            CreatedAt = product.CreatedAt,
-            UpdatedAt = product.UpdatedAt
-        };
+        return new ProductDto(
+            product.Id,
+            product.Name,
+            product.Description,
+            product.Price,
+            product.StockQuantity,
+            product.CreatedAt,
+            product.UpdatedAt
+        );
     }
 }

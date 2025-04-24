@@ -1,9 +1,5 @@
 ﻿using MediatR;
 using RO.DevTest.Application.Contracts.Persistance.Repositories;
-using RO.DevTest.Domain.Exception;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace RO.DevTest.Application.Features.Product.Commands.UpdateProductCommand;
 
@@ -26,7 +22,7 @@ public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand,
 
         if (product == null)
         {
-            throw new NotFoundException($"Product with ID {request.Id} not found.");
+            throw new KeyNotFoundException($"Product with ID {request.Id} not found.");
         }
 
         // Update product properties

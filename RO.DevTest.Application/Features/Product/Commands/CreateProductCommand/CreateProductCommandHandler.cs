@@ -1,7 +1,8 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using MediatR;
 using RO.DevTest.Application.Contracts.Persistance.Repositories;
-using System.Threading;
-using System.Threading.Tasks;
+using RO.DevTest.Domain.Exception;
 
 namespace RO.DevTest.Application.Features.Product.Commands.CreateProductCommand;
 
@@ -17,18 +18,24 @@ public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand,
         _productRepository = productRepository;
     }
 
-    public async Task<CreateProductResult> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+    public async Task<CreateProductResult> Handle(
+        CreateProductCommand request, CancellationToken cancellationToken)
     {
-        // Map command to domain entity
+        var validator = new CreateProductCommandValidator();
+        ValidationResult validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+        if (!validationResult.IsValid)
+        {
+            throw new BadRequestException(validationResult);
+        }
+
         var product = request.AssignTo();
 
-        // Add product to database
         await _productRepository.AddAsync(product);
 
-        // Return result
         return new CreateProductResult
         {
-            Id = product.Id,
+            Id = Guid.NewGuid(),
             Name = product.Name,
             Description = product.Description,
             Price = product.Price,
