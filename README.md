@@ -239,4 +239,3 @@ Se precisar parar o contêiner, execute o seguinte comando:
 
 ```bash
 docker stop <CONTAINER_ID>
->>>>>>> 87398b86bc8dff5d89569edccb7cd2d860e6e0fe
