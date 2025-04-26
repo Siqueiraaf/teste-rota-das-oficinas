@@ -173,4 +173,4 @@ Apesar de não conseguir entregar 100% do que dava pra fazer, estou feliz por te
 
 Agradeço pela oportunidade!
 
-A API de e-commerce desenvolvida atende a todos os requisitos especificados no teste técnico exceto os adcionais .
+A API de e-commerce desenvolvida atende a todos os requisitos especificados no teste técnico exceto os adcionais.
