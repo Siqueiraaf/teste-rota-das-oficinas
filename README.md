@@ -169,15 +169,10 @@ A documentação via Swagger facilita o entendimento e uso da API.
 
 Tentei implementar ao máximo tudo que foi solicitado. Eu não tinha experiência anterior com GitHub Workflows nem com a arquitetura CQRS, então precisei dedicar bastante tempo estudando e aplicando esses conceitos e sei que não ficou dos melhores. Consegui avançar bastante: usei o exemplo disponível de testes unitários para criar meus próprios "mocks" e busquei seguir o máximo possível os padrões propostos.
 
-Apesar de não conseguir entregar 100% do que dava pra fazer, estou feliz por ter aprendido muito durante o processo. Achei o teste muito maneiro, bem elaborado e explicado, o que ajudou bastante no desenvolvimento.
+Agradeço pela oportunidade! estou feliz por ter aprendido muito durante o processo. Achei o teste muito maneiro, bem elaborado e explicado, o que ajudou bastante no desenvolvimento. 
 
-Agradeço pela oportunidade!
-
-<<<<<<< HEAD
-A API de e-commerce desenvolvida atende a todos os requisitos especificados no teste técnico exceto os adcionais.
-=======
 A API de e-commerce desenvolvida atende a todos os requisitos especificados no teste técnico exceto os adcionais .
-Estarei deixando detlhado o uso do docker
+Estarei deixando detlhado o uso do docker:
 
 ## Documentação de Uso - Aplicação Docker `ro-devtest`
 
