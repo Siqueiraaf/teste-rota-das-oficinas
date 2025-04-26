@@ -1,4 +1,5 @@
 ﻿using System;
+using RO.DevTest.Domain.Enums;
 
 namespace RO.DevTest.Application.Features.Product.Queries.GetProductByIdQuery;
 
@@ -39,5 +40,7 @@ public record ProductDto(
     /// <summary>
     /// Date and time when the product was last updated
     /// </summary>
-    DateTime? UpdatedAt
+    DateTime? UpdatedAt,
+
+    ProductStatus Status
 );

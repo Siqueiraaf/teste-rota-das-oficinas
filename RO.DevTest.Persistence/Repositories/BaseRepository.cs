@@ -168,4 +168,17 @@ public class BaseRepository<T>(DefaultContext defaultContext) : IBaseRepository<
 
         return await _context.Set<T>().Where(predicate).CountAsync();
     }
+
+    public async Task<T?> GetAsync(Expression<Func<T, bool>> predicate, Expression<Func<T, bool>> additionalPredicate)
+    {
+        return await _context.Set<T>()
+            .Where(predicate)
+            .Where(additionalPredicate)
+            .FirstOrDefaultAsync();
+    }
+
+    Task<IReadOnlyList<T>> IBaseRepository<T>.GetAsync(Expression<Func<T, bool>> expression, Expression<Func<T, bool>> predicate)
+    {
+        throw new NotImplementedException();
+    }
 }

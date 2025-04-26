@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using RO.DevTest.Domain.Enums;
 
 namespace RO.DevTest.Application.Features.Sale.Commands.CreateSaleCommand;
 
@@ -9,7 +8,8 @@ public class CreateSaleResult
     public string UserId { get; set; } = string.Empty;
     public decimal TotalAmount { get; set; }
     public DateTime SaleDate { get; set; }
-    public List<SaleItemResult> Items { get; set; } = new List<SaleItemResult>();
+    public List<SaleItemResult> Items { get; set; } = [];
+    public PaymentMethod PaymentMethod { get; set; }
 }
 
 public class SaleItemResult

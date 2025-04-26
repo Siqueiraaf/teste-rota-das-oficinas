@@ -29,6 +29,7 @@ public class SalesController : ControllerBase
     /// Gets a paginated list of sales with optional filtering and sorting
     /// </summary>
     [HttpGet]
+    [ProducesResponseType(typeof(SalesVm), StatusCodes.Status200OK)]
     public async Task<ActionResult<SalesVm>> GetSales([FromQuery] GetSalesQuery query)
     {
         var result = await _mediator.Send(query);
@@ -39,6 +40,8 @@ public class SalesController : ControllerBase
     /// Gets a sale by its ID
     /// </summary>
     [HttpGet("{id}")]
+    [ProducesResponseType(typeof(SaleDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<SaleDto>> GetSaleById(Guid id)
     {
         var query = new GetSaleByIdQuery { Id = id };
@@ -50,6 +53,8 @@ public class SalesController : ControllerBase
     /// Creates a new sale
     /// </summary>
     [HttpPost]
+    [ProducesResponseType(typeof(CreateSaleResult), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<CreateSaleResult>> CreateSale([FromBody] CreateSaleCommand command)
     {
         var result = await _mediator.Send(command);
@@ -61,6 +66,8 @@ public class SalesController : ControllerBase
     /// </summary>
     [HttpGet("analysis")]
     [Authorize(Roles = "Admin")]
+    [ProducesResponseType(typeof(SalesAnalysisVm), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<SalesAnalysisVm>> GetSalesAnalysis([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
     {
         var query = new GetSalesAnalysisQuery

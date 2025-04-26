@@ -54,7 +54,9 @@ public interface IBaseRepository<T> where T : class {
     /// </summary>
     /// <param name="predicate">Filter condition</param>
     /// <returns>List of matching entities</returns>
-    Task<IReadOnlyList<T>> GetAsync(Expression<Func<T, bool>> predicate);
+    Task<IReadOnlyList<T>> GetAsync(
+        Expression<Func<T, bool>> expression, 
+        Expression<Func<T, bool>> predicate);
 
     /// <summary>
     /// Gets entities with advanced filtering, ordering, and including related entities

@@ -30,6 +30,7 @@ public class ProductsController : ControllerBase
     /// Gets a paginated list of products with optional filtering and sorting
     /// </summary>
     [HttpGet]
+    [ProducesResponseType(typeof(ProductsVm), StatusCodes.Status200OK)]
     public async Task<ActionResult<ProductsVm>> GetProducts([FromQuery] GetProductsQuery query)
     {
         var result = await _mediator.Send(query);
@@ -39,7 +40,10 @@ public class ProductsController : ControllerBase
     /// <summary>
     /// Gets a product by its ID
     /// </summary>
+    /// /// <returns>Item com base no ID</returns>
     [HttpGet("{id}")]
+    [ProducesResponseType(typeof(ProductDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<ProductDto>> GetProductById(Guid id)
     {
         var query = new GetProductByIdQuery { Id = id };
@@ -52,6 +56,8 @@ public class ProductsController : ControllerBase
     /// </summary>
     [HttpPost]
     [Authorize(Roles = "Admin")]
+    [ProducesResponseType(typeof(CreateProductResult), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<CreateProductResult>> CreateProduct([FromBody] CreateProductCommand command)
     {
         var result = await _mediator.Send(command);
@@ -63,6 +69,9 @@ public class ProductsController : ControllerBase
     /// </summary>
     [HttpPut("{id}")]
     [Authorize(Roles = "Admin")]
+    [ProducesResponseType(typeof(UpdateProductResult), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<UpdateProductResult>> UpdateProduct(Guid id, [FromBody] UpdateProductCommand command)
     {
         if (id != command.Id)
@@ -79,6 +88,8 @@ public class ProductsController : ControllerBase
     /// </summary>
     [HttpDelete("{id}")]
     [Authorize(Roles = "Admin")]
+    [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<bool>> DeleteProduct(Guid id)
     {
         var command = new DeleteProductCommand { Id = id };

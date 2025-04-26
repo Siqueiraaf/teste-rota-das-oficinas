@@ -21,13 +21,30 @@ public class Program
         // Add Controllers
         builder.Services.AddControllers();
 
+        builder.Services.AddControllers()
+        .AddJsonOptions(options =>
+        {
+            options.JsonSerializerOptions.Converters.Add(
+                new System.Text.Json.Serialization.JsonStringEnumConverter());
+        });
+
         // Swagger
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen(c =>
         {
-            c.SwaggerDoc("v1", new OpenApiInfo { Title = "RO.DevTest API", Version = "v1" });
+            c.SwaggerDoc("v1", new OpenApiInfo 
+            {
+                Contact = new OpenApiContact
+                {
+                    Email = "dev.rafaelsiqueira@gmail.com",
+                    Name = "Rafael Siqueira",
+                    Url = new Uri("https://github.com/Siqueiraaf/")
+                },
+                Description = "Teste Técnico - API Web CQRS Simples",
+                Title = "RO.DevTest API",
+                Version = "v1"
+            });
 
-            // ?? Resolve conflito entre classes com mesmo nome
             c.CustomSchemaIds(type => type.FullName);
 
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -55,7 +72,6 @@ public class Program
             });
         });
 
-
         // DbContext
         builder.Services.AddDbContext<DefaultContext>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -63,9 +79,8 @@ public class Program
         // Dependency Injection for Layers
         builder.Services.InjectPersistenceDependencies()
             .InjectInfrastructureDependencies();
+        
         builder.Services.AddApplicationServices();
-        //builder.Services.AddInfrastructureServices();
-        //builder.Services.AddPersistenceServices();
 
         // JWT Authentication
         builder.Services.AddAuthentication(options =>

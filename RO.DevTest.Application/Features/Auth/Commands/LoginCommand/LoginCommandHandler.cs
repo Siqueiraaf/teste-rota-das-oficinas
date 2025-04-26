@@ -5,7 +5,7 @@ using RO.DevTest.Application.Contracts.Infrastructure;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using DomainUser = RO.DevTest.Domain.Entities.User; // Alias
+using DomainUser = RO.DevTest.Domain.Entities.User;
 
 namespace RO.DevTest.Application.Features.Auth.Commands.LoginCommand;
 
@@ -36,25 +36,19 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, LoginResponse>
             return new LoginResponse();
         }
 
-        // Get user roles
         var roles = await _identityAbstractor.GetUserRolesAsync(user);
 
-        // Generate JWT token
         var (token, expiration) = GenerateJwtToken(user, roles);
 
-        // Return successful result
         return new LoginResponse
         {
             AccessToken = token,
-            RefreshToken = Guid.NewGuid().ToString(), // Em produção, isso deve ser salvo
+            RefreshToken = Guid.NewGuid().ToString(),
             Roles = roles,
             ExpirationDate = expiration
         };
     }
 
-    /// <summary>
-    /// Gera um token JWT para o usuário autenticado
-    /// </summary>
     private (string token, DateTime expiration) GenerateJwtToken(DomainUser user, IList<string> roles)
     {
         var claims = new List<Claim>

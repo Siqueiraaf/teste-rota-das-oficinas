@@ -1,4 +1,5 @@
 ﻿using System;
+using RO.DevTest.Domain.Enums;
 
 namespace RO.DevTest.Domain.Entities;
 
@@ -41,4 +42,6 @@ public class Product
     /// Date and time when the product was last updated
     /// </summary>
     public DateTime? UpdatedAt { get; set; }
+
+    public ProductStatus Status { get; set; } = ProductStatus.Available;
 }

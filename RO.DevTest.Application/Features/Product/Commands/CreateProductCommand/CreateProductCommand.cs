@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using RO.DevTest.Domain.Enums;
 
 namespace RO.DevTest.Application.Features.Product.Commands.CreateProductCommand;
 
@@ -27,6 +28,8 @@ public class CreateProductCommand : IRequest<CreateProductResult>
     /// </summary>
     public int StockQuantity { get; set; }
 
+    public ProductStatus Status { get; set; } = ProductStatus.Available;
+
     /// <summary>
     /// Maps command to domain entity
     /// </summary>
@@ -39,6 +42,7 @@ public class CreateProductCommand : IRequest<CreateProductResult>
             Description = Description,
             Price = Price,
             StockQuantity = StockQuantity,
+            Status = Status,
             CreatedAt = DateTime.UtcNow
         };
     }

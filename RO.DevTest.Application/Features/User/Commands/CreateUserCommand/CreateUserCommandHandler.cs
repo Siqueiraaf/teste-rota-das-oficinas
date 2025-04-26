@@ -14,6 +14,7 @@ public class CreateUserCommandHandler(IIdentityAbstractor identityAbstractor) : 
 
     public async Task<CreateUserResult> Handle(CreateUserCommand request, CancellationToken cancellationToken) {
         CreateUserCommandValidator validator = new();
+
         ValidationResult validationResult = await validator.ValidateAsync(request, cancellationToken);
 
         if(!validationResult.IsValid) {

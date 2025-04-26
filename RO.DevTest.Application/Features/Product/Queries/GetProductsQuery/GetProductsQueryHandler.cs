@@ -75,7 +75,8 @@ public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, Product
                 p.Price,
                 p.StockQuantity,
                 p.CreatedAt,
-                p.UpdatedAt
+                p.UpdatedAt,
+                p.Status
             )).ToList(),
             TotalCount = totalCount,
             PageNumber = request.PageNumber,

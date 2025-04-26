@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using RO.DevTest.Domain.Enums;
 
 namespace RO.DevTest.Domain.Entities;
 
@@ -36,5 +37,9 @@ public class Sale
     /// <summary>
     /// Collection of items included in this sale
     /// </summary>
-    public ICollection<SaleItem> Items { get; set; } = new List<SaleItem>();
+    public ICollection<SaleItem> Items { get; set; } = [];
+
+    public SaleStatus Status { get; set; } = SaleStatus.Pending;
+
+    public PaymentMethod PaymentMethod { get; set; }
 }
