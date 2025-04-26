@@ -169,8 +169,79 @@ A documentação via Swagger facilita o entendimento e uso da API.
 
 Tentei implementar ao máximo tudo que foi solicitado. Eu não tinha experiência anterior com GitHub Workflows nem com a arquitetura CQRS, então precisei dedicar bastante tempo estudando e aplicando esses conceitos e sei que não ficou dos melhores. Consegui avançar bastante: usei o exemplo disponível de testes unitários para criar meus próprios "mocks" e busquei seguir o máximo possível os padrões propostos.
 
-Apesar de não conseguir entregar 100% do que dava pra fazer, estou feliz por ter aprendido muito durante o processo. Achei o teste muito maneiro e bem elaborado e explicado, o que ajudou bastante no desenvolvimento.
+Apesar de não conseguir entregar 100% do que dava pra fazer, estou feliz por ter aprendido muito durante o processo. Achei o teste muito maneiro, bem elaborado e explicado, o que ajudou bastante no desenvolvimento.
 
 Agradeço pela oportunidade!
 
+<<<<<<< HEAD
 A API de e-commerce desenvolvida atende a todos os requisitos especificados no teste técnico exceto os adcionais.
+=======
+A API de e-commerce desenvolvida atende a todos os requisitos especificados no teste técnico exceto os adcionais .
+Estarei deixando detlhado o uso do docker
+
+## Documentação de Uso - Aplicação Docker `ro-devtest`
+
+## Requisitos
+
+- **Docker** instalado na sua máquina. Caso ainda não tenha o Docker, siga as instruções de instalação [aqui](https://docs.docker.com/get-docker/).
+
+## Rodando a Aplicação
+
+Existem duas formas de rodar a aplicação: usando a **Interface Gráfica do Docker** ou a **Linha de Comando**. Abaixo, explico ambas as opções.
+
+---
+
+### 1. Usando a Interface Gráfica (Docker Desktop)
+
+1. **Abrir o Docker Desktop**:
+   - Inicie o Docker Desktop na sua máquina.
+
+2. **Localizar a Imagem**:
+   - No painel esquerdo, clique na aba **"Images"** (Imagens). Lá você verá a imagem `ro-devtest` listada.
+
+3. **Rodar a Imagem**:
+   - Clique na imagem `ro-devtest` e depois no botão **"Run"**.
+   - O Docker criará e iniciará automaticamente o contêiner para você.
+
+4. **Acessar a Aplicação**:
+   - Acesse a aplicação no seu navegador em **`http://localhost:8080`** ou na porta que foi configurada.
+
+---
+
+### 2. Usando a Linha de Comando
+
+1. **Abrir o Terminal**:
+   - No Windows, abra o **PowerShell** ou o **Prompt de Comando**.
+   - No macOS ou Linux, abra o **Terminal**.
+
+2. **Rodar o Contêiner**:
+   - Execute o seguinte comando para rodar o contêiner:
+
+     ```bash
+     docker run -d -p 8080:80 ro-devtest
+     ```
+
+   **Explicação dos parâmetros**:
+   - **`-d`**: Executa o contêiner em segundo plano (modo "detached").
+   - **`-p 8080:80`**: Mapeia a porta 8080 do seu computador para a porta 80 dentro do contêiner, onde a aplicação estará rodando.
+   - **`ro-devtest`**: Nome da imagem Docker criada.
+
+3. **Verificar a Aplicação**:
+   - A aplicação estará acessível em **`http://localhost:8080`** no seu navegador.
+
+4. **Verificar Contêineres em Execução**:
+   - Caso queira verificar os contêineres que estão em execução, use o comando:
+
+     ```bash
+     docker ps
+     ```
+
+---
+
+## Parando o Contêiner
+
+Se precisar parar o contêiner, execute o seguinte comando:
+
+```bash
+docker stop <CONTAINER_ID>
+>>>>>>> 87398b86bc8dff5d89569edccb7cd2d860e6e0fe
